@@ -15,6 +15,7 @@ def test_registration(driver):
     # Login page
     login = "admin@test"
     password = 'greenwhite'
+
     login_xpath = "//div/input[@placeholder='Логин@компания']"
     password_xpath = "//div/input[@placeholder='Пароль']"
     signup_xpath = "//div/button[contains(text(), 'Войти')]"
@@ -51,18 +52,21 @@ def test_registration(driver):
     next_button_xpath = "//span/t[contains(text(), 'Далее')]"
 
     # Goods page
+    goods_header_xpath = "//div/h3/t[contains(text(), 'ТМЦ')]"
+    goods_expected_text = "ТМЦ"
+    goods_error_message = "Goods_page sahifa ochilmadi!"
     name_input_xpath = "(//div/input[@placeholder='Поиск...'])[7]"
-    name_elem_xpath = '//*[@id="inventory_goods_216"]/div[2]/b-pg-grid/div/div/div[1]/div[2]/div[1]/div[1]/div/b-input/div/div[1]/div/input'
+    name_elem_xpath = "(//div[@class = 'col-sm-12 ng-binding'])[1]"
     qty_input_xpath = "(//div/input[@ng-if='item.product_id'])[1]"
     goods_next_button_xpath = "//span/t[contains(text(), 'Далее')]"
-    name = 'Product 2'
+    name = 'Coca-Cola 1.5L / Coca-Cola Uzbekistan / Узбекистан'
     qty = '3'
 
     # Final page
     payment_type_input_xpath = '//*[@id="kt_content"]/div[2]/div/b-page/div/div/div/div/div/form[3]/div/div[2]/div/div/div[2]/b-input/div/div[1]/div/input'
     payment_elem_xpath = '//*[@id="kt_content"]/div[2]/div/b-page/div/div/div/div/div/form[3]/div/div[2]/div/div/div[2]/b-input/div/div[2]/div[1]/div/div'
     status_input_xpath = '//*[@id="kt_content"]/div[2]/div/b-page/div/div/div/div/div/form[3]/div/div[3]/div/div/div[6]/div'
-    status_elem_xpath = '//*[@id="ui-select-choices-row-4-0"]/span'
+    status_elem_xpath = '//*[@id="ui-select-choices-row-1-0"]/span'
     save_button_xpath = "//span/t[contains(text(), 'Сохранить')]"
     yes_button_xpath = "//div/button[contains(text(), 'да')]"
 
@@ -95,7 +99,7 @@ def test_registration(driver):
     # Create order page
     workspace = 'Family Group'
     staff_unit = 'BetterCall'
-    client = 'debtor'
+    client = '"SUXROB KAMOLOVICH NONLARI" OK'
     create_orders_page = CreateOrderPage(driver)
     create_orders_page.check_page(create_order_header_xpath, create_order_expected_text, create_order_error_message)
     create_orders_page.fill_form(workspace, staff_unit, client, workspace_xpath, workspace_elem_xpath,
@@ -105,6 +109,7 @@ def test_registration(driver):
 
     # Goods page
     goods_page = GoodsPage(driver)
+    orders_page.check_page(goods_header_xpath, goods_expected_text, goods_error_message)
     goods_page.fill_form(name_input_xpath, name_elem_xpath, qty_input_xpath, qty)
     goods_page.click_next_button(goods_next_button_xpath)
 
